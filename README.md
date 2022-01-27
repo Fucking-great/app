@@ -1,5 +1,8 @@
 # app
-
+## 初始化项目
+```
+vue create xxxx
+```
 ## Project setup
 ```
 yarn install
