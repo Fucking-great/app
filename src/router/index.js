@@ -10,6 +10,31 @@ import Home from "@/pages/Home"
 import Login from "@/pages/Login"
 import Register from "@/pages/Register"
 import Search from "@/pages/Search"
+
+// console.log("------",vueRouter.prototype)
+// 重写push/replace
+let originPush = vueRouter.prototype.push;
+let originReplace = vueRouter.prototype.replace
+
+// 第一个参数是，告诉push方法，往哪跳转（传递哪些参数）
+vueRouter.prototype.push = function (location, resolve,reject) {
+    if (resolve && reject){
+        // call/apply区别
+        // 相同点，都可以调用一次函数，都可以篡改函数的上下文一次
+        // 不同点,call与apple传递参数，call传递用逗号分隔，apply方法执行，传递数组
+        originPush.call(this,location,resolve,reject)
+    }else {
+        originPush.call(this,location,() =>{}, ()=>{})
+    }
+}
+vueRouter.prototype.replace = function (location,resolve, reject) {
+    if (resolve && reject){
+        originReplace.call(this,location,resolve,reject)
+    }else {
+        originReplace.call(this,location,() => {}, () => {})
+    }
+}
+
 // 配置路由
 export default new vueRouter({
     routes: [
@@ -34,9 +59,10 @@ export default new vueRouter({
             meta: {show: false}
         },
         {
-            path: "/search",
+            path: "/search/:keyword",
             component: Search,
-            meta: {show: true}
+            meta: {show: true},
+            name: 'search'
 
         }
     ]
