@@ -2,23 +2,23 @@
     <!-- 商品分类导航 -->
     <div class="type-nav">
         <div class="container">
-            <div @mouseleave="leaveIndex">
+            <div @mouseleave="leaveShow" @mouseenter="enterShow" >
                 <h2 class="all">全部商品分类</h2>
-                <div class="sort">
-                    <div class="all-sort-list2">
+                <div class="sort" v-show="show">
+                    <div class="all-sort-list2" @click="goSearch">
                         <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId" :class="{cur:currentIndex == index}">
                             <h3 @mouseenter="changeIndex(index)">
-                                <a href="">{{c1.categoryName}}</a>
+                                <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
                             </h3>
                             <div class="item-list clearfix" :style="{display:currentIndex == index? 'block' : 'none'}">
                                 <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                                     <dl class="fore">
                                         <dt>
-                                            <a href="">{{c2.categoryName}}</a>
+                                            <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
                                         </dt>
                                         <dd>
                                             <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                                                <a href="">{{c3.categoryName}}</a>
+                                                <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
                                             </em>
                                         </dd>
                                     </dl>
@@ -44,17 +44,27 @@
 
 <script>
     import {mapState} from "vuex"
+    // 按需引入 节流
+    import throttle from "lodash/throttle"
     export default {
         name: "TypeNav",
         data () {
             return {
-                currentIndex: -1
+                currentIndex: -1,
+                show: true
             }
         },
         // 当组件挂在完毕：可以向服务器发起请求
         mounted() {
             // 通知vuex发起请求，获取数据，储存于仓库中
             this.$store.dispatch('categoryList');
+
+            // 当组件挂在完毕，让show属性变为false
+            console.log('----', this.$router)
+            console.log('++++',this.$route)
+            if (this.$route.path != "/home"){
+                this.show = false
+            }
         },
         computed: {
             ...mapState({
@@ -64,11 +74,45 @@
             })
         },
         methods: {
-            changeIndex (index) {
+            // 鼠标移入调用三级菜单
+            // changeIndex (index) {
+            //     this.currentIndex = index
+            // },
+            changeIndex: throttle(function (index) {
                 this.currentIndex = index
+            },20),
+            // 当鼠标移出
+            leaveShow () {
+                this.currentIndex = -1;
+                if (this.$route.path != '/home'){
+                    this.show = false
+                }
             },
-            leaveIndex () {
-                this.currentIndex = -1
+            goSearch (event) {
+                let element = event.target
+                let {categoryname, category1id, category2id, category3id} = element.dataset
+
+
+                if (categoryname){
+                    let location = {name: 'search'}
+                    let query = {categoryName:categoryname}
+                    if (category1id){
+                        query.category1Id = category1id
+                    }else if (category2id){
+                        query.category2Id = category2id
+                    }else {
+                        query.category3Id = category3id
+                    }
+                    // 整理参数
+                    location.query = query
+                    console.log(location.query = query)
+                    // 路由跳转
+                    this.$router.push(location)
+                }
+            },
+            // 鼠标移入显示导航栏
+            enterShow () {
+                this.show = true
             }
         }
     }
@@ -118,7 +162,7 @@
                 .all-sort-list2 {
                     .item {
                         h3 {
-                            line-height: 30px;
+                            line-height: 25.5px;
                             font-size: 14px;
                             font-weight: 400;
                             overflow: hidden;
@@ -185,11 +229,6 @@
                             }
                         }
 
-                        &:hover {
-                            .item-list {
-                                display: block;
-                            }
-                        }
                     }
                     .cur {
                         background-color: skyblue;
