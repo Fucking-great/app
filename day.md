@@ -128,3 +128,14 @@ XMLHttprequest,fatch,JQ,axios
 ```
 _.throttle 节流 不能用箭头函数，会出现this上下文问题
 ```
+### home轮播图
+```
+listContainer跟floor
+使用mock.js
+把mock数据需要的图片放到public文件夹下
+开始mock(虚拟数据)，通过mockjs模块实现,创建mockServer.js
+mockServer.js 在入口文件中引用（至少执行一次，才能模拟数据）
+
+安装swiper插件（5）
+npm install --save swiper@5
+```

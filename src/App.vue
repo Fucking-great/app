@@ -17,8 +17,9 @@
             Header,
             Footer
         },
-        methods: {
-
+        mounted () {
+            // 通知vuex发起请求，获取数据，储存于仓库中
+            this.$store.dispatch('categoryList');
         }
     }
 </script>

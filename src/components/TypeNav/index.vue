@@ -4,13 +4,14 @@
         <div class="container">
             <div @mouseleave="leaveShow" @mouseenter="enterShow" >
                 <h2 class="all">全部商品分类</h2>
-                <div class="sort" v-show="show">
+                <transition name="sort">
+                    <div class="sort" v-show="show" :style="{overflow:currentIndex != -1 ? 'visible' : 'hidden'}">
                     <div class="all-sort-list2" @click="goSearch">
                         <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId" :class="{cur:currentIndex == index}">
                             <h3 @mouseenter="changeIndex(index)">
                                 <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
                             </h3>
-                            <div class="item-list clearfix" :style="{display:currentIndex == index? 'block' : 'none'}">
+                            <div class="item-list clearfix" :style="{display:currentIndex == index ? 'block' : 'none'}">
                                 <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                                     <dl class="fore">
                                         <dt>
@@ -27,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+                </transition>
             </div>
             <nav class="nav">
                 <a href="###">服装城</a>
@@ -51,20 +53,21 @@
         data () {
             return {
                 currentIndex: -1,
-                show: true
+                show: true,
             }
         },
         // 当组件挂在完毕：可以向服务器发起请求
         mounted() {
             // 通知vuex发起请求，获取数据，储存于仓库中
-            this.$store.dispatch('categoryList');
+            // this.$store.dispatch('categoryList');
 
             // 当组件挂在完毕，让show属性变为false
-            console.log('----', this.$router)
-            console.log('++++',this.$route)
+            // console.log('----', this.$router)
+            // console.log('++++',this.$route)
             if (this.$route.path != "/home"){
                 this.show = false
             }
+
         },
         computed: {
             ...mapState({
@@ -92,7 +95,6 @@
                 let element = event.target
                 let {categoryname, category1id, category2id, category3id} = element.dataset
 
-
                 if (categoryname){
                     let location = {name: 'search'}
                     let query = {categoryName:categoryname}
@@ -103,11 +105,14 @@
                     }else {
                         query.category3Id = category3id
                     }
-                    // 整理参数
-                    location.query = query
-                    console.log(location.query = query)
-                    // 路由跳转
-                    this.$router.push(location)
+
+                    if(this.$route.params){
+                        location.params = this.$route.params
+                        // 整理参数
+                        location.query = query
+                        // 路由跳转
+                        this.$router.push(location)
+                    }
                 }
             },
             // 鼠标移入显示导航栏
@@ -150,6 +155,9 @@
             }
 
             .sort {
+                //
+                /*overflow: hidden;*/
+                //
                 position: absolute;
                 left: 0;
                 top: 45px;
@@ -234,6 +242,24 @@
                         background-color: skyblue;
                     }
                 }
+            }
+            .sort-enter{
+                height: 0;
+            }
+            .sort-enter-to{
+                height: 461px;
+            }
+            .sort-enter-active{
+                transition: all .5s;
+            }
+            .sort-leave{
+                height: 461px;
+            }
+            .sort-leave-to{
+                height: 0px;
+            }
+            .sort-leave-active{
+                transition: all .5s;
             }
         }
     }

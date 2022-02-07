@@ -41,13 +41,13 @@
                                 <li>滚筒洗衣机</li>
                                 <li>电热水器</li>
                             </ul>
-                            <img src="./images/floor-1-1.png" />
+                            <img src="../../../../public/images/floor-1-1.png" />
                         </div>
                         <div class="floorBanner">
                             <div class="swiper-container" id="floor1Swiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img src="./images/floor-1-b01.png">
+                                        <img src="../../../../public/images/floor-1-b01.png">
                                     </div>
 <!--                                    <div class="swiper-slide">-->
 <!--                                        <img src="./images/floor-1-b02.png">-->
@@ -67,22 +67,22 @@
                         <div class="split">
                             <span class="floor-x-line"></span>
                             <div class="floor-conver-pit">
-                                <img src="./images/floor-1-2.png" />
+                                <img src="../../../../public/images/floor-1-2.png" />
                             </div>
                             <div class="floor-conver-pit">
-                                <img src="./images/floor-1-3.png" />
+                                <img src="../../../../public/images/floor-1-3.png" />
                             </div>
                         </div>
                         <div class="split center">
-                            <img src="./images/floor-1-4.png" />
+                            <img src="../../../../public/images/floor-1-4.png" />
                         </div>
                         <div class="split">
                             <span class="floor-x-line"></span>
                             <div class="floor-conver-pit">
-                                <img src="./images/floor-1-5.png" />
+                                <img src="../../../../public/images/floor-1-5.png" />
                             </div>
                             <div class="floor-conver-pit">
-                                <img src="./images/floor-1-6.png" />
+                                <img src="../../../../public/images/floor-1-6.png" />
                             </div>
                         </div>
                     </div>
