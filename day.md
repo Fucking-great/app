@@ -138,4 +138,7 @@ mockServer.js 在入口文件中引用（至少执行一次，才能模拟数据
 
 安装swiper插件（5）
 npm install --save swiper@5
+    - 引如
+    - 页面结构
+    - new swiper 实例 
 ```
