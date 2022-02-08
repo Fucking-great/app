@@ -21,9 +21,6 @@
     export default {
         name: "Carousel",
         props: ['list'],
-        created() {
-            console.log(this.list)
-        },
         watch: {
             list:{
                 handler(){

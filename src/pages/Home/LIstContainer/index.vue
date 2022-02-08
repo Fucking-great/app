@@ -91,14 +91,12 @@
 
 <script>
     import {mapState} from "vuex"
-    // 轮播
-    import Swiper from 'swiper'
 
     export default {
         name: "ListContainer",
         mounted() {
             // 派发action: 通过Vuex发起ajax请求，将数据存储在仓库中
-            this.$store.dispatch('getBannerList');
+            this.$store.dispatch('getBannerList',{});
         },
         computed: {
             ...mapState({

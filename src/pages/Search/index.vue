@@ -330,9 +330,15 @@
   import SearchSelector from './SearchSelector/SearchSelector'
   export default {
     name: 'Search',
-
     components: {
       SearchSelector
+    },
+    mounted() {
+      // 派发action
+      this.$store.dispatch('getSearchList', {})
+      // console.log(this.$store.dispatch)
+    },
+    component() {
     }
   }
 </script>

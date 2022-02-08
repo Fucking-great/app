@@ -15,7 +15,7 @@ const mutations = {
     GETBANNER (state, bannerList) {
         state.bannerList = bannerList
     },
-    FLOOR (state, floorList) {
+    GETFLOOR (state, floorList) {
         state.floorList = floorList
     }
 }
@@ -39,7 +39,7 @@ const actions = {
     async getFloorList ({commit}) {
         let result = await reqFloorList()
         if(result.code == 200){
-            commit("FLOOR", result.data)
+            commit("GETFLOOR", result.data)
         }
     }
 }

@@ -31,7 +31,6 @@
         mounted() {
             // 派发action: 通过Vuex发起ajax请求，将数据存储在仓库中
             this.$store.dispatch("getFloorList")
-            console.log("this.$store", this.$store)
         },
         computed: {
             ...mapState({
