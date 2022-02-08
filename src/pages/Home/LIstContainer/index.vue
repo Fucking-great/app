@@ -4,19 +4,7 @@
         <div class="sortList clearfix">
             <div class="center">
                 <!--banner轮播-->
-                <div class="swiper-container" id="mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="carousel in bannerList" :key="carousel.id">
-                            <img :src="carousel.imgUrl"/>
-                        </div>
-                    </div>
-                    <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination"></div>
-
-                    <!-- 如果需要导航按钮 -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
+                <Carousel :list="bannerList"/>
             </div>
             <div class="right">
                 <div class="news">
@@ -111,36 +99,12 @@
         mounted() {
             // 派发action: 通过Vuex发起ajax请求，将数据存储在仓库中
             this.$store.dispatch('getBannerList');
-            setTimeout(() => {
-                var mySwiper = new Swiper ('.swiper-container', {
-                    loop: true, // 循环模式选项
-
-                    // 如果需要分页器
-                    pagination: {
-                        el: '.swiper-pagination',
-                    },
-
-                    // 如果需要前进后退按钮
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-
-                    // 自动切换
-                    autoplay: {
-                        delay: 3000,
-                        stopOnLastSlide: false,
-                        disableOnInteraction: true,
-                    },
-                })
-            },1000)
-
         },
         computed: {
             ...mapState({
                 bannerList:(state) => state.home.bannerList
             })
-        }
+        },
     }
 </script>
 

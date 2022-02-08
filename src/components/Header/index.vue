@@ -43,7 +43,7 @@
 
 <script>
     export default {
-        name: "index.vue",
+        name: "Header",
         data() {
             return {
                 keyword: ''
