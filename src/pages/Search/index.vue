@@ -56,7 +56,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -80,7 +80,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -104,7 +104,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -128,7 +128,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -152,7 +152,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -176,7 +176,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -200,7 +200,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -224,7 +224,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -248,7 +248,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -272,7 +272,7 @@
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
+                      <em>¥&nbsp;</em>
                       <i>6088.00</i>
                     </strong>
                   </div>
@@ -328,6 +328,7 @@
 
 <script>
   import SearchSelector from './SearchSelector/SearchSelector'
+  import {mapState} from "vuex"
   export default {
     name: 'Search',
     components: {
@@ -336,9 +337,12 @@
     mounted() {
       // 派发action
       this.$store.dispatch('getSearchList', {})
-      // console.log(this.$store.dispatch)
+      console.log('this.searchList', this.searchList)
     },
-    component() {
+    computed: {
+      ...mapState({
+          searchList:(state) => state.search.searchList
+      })
     }
   }
 </script>
